@@ -1,0 +1,26 @@
+videospor:
+  image: videospor_img
+  ports:
+    - "80:80"
+    - "3306:3306"
+  environment:
+    APPLICATION_ENV: development
+    DB_NAME: libvas
+  command: sh /init.sh
+  volumes:
+    - ./web-files/pinfo.php:/pinfo.php
+    - ./web-files/init.sh:/init.sh
+    - ./web-files/supervisord.conf:/supervisord.conf
+    - ./web-files/my.cnf:/etc/my.cnf
+    - ./web-files/nginx.conf:/etc/nginx/nginx.conf
+    - ./web-files/vhost.conf:/etc/nginx/conf.d/vhost.conf
+    - ./web-files/www.conf:/etc/php-fpm.d/www.conf
+    - ./web-files/php-development.ini:/etc/php.d/php-development.ini
+    - ./web-files/xdebug-remote.ini:/etc/php.d/xdebug-remote.ini
+    - ./web-files/xdebug-profiler.ini:/etc/php.d/xdebug-profiler.ini
+    - ./../:/data/project
+    - ./../log/nginx:/var/log/nginx
+    - ./../log/php-fpm:/var/log/php-fpm
+    - ./../log/bash_history:/root/.bash_history
+    - //Users/fatihustundag/.ssh/beanstalkapp_rsa:/root/.ssh/id_rsa
+    - /var/lib/mysql
