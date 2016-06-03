@@ -60,3 +60,14 @@ Web üzerinden erişmek için çalışan docker machine default ipsi olan 192.16
 http://192.168.99.100/
 
 Çalışan sanal makina sizin makinanızı 192.168.99.1 olarak görür. Gereken yerlerde bu ip kullanılabilir.
+
+## Faydalı Docker Komutları
+Çalışan containerları listelemek için
+```bash
+$ docker ps
+```
+
+Tüm containerları listelemek için
+```bash
+$ docker ps -a
+```
