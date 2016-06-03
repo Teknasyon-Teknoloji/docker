@@ -8,13 +8,13 @@
     DB_NAME: [PROJECT DBNAME]
   command: sh /init.sh
   volumes:
-    - ./web-files/pinfo.php:/pinfo.php
-    - ./web-files/init.sh:/init.sh
-    - ./web-files/supervisord.conf:/supervisord.conf
-    - ./web-files/my.cnf:/etc/my.cnf
-    - ./web-files/vhost.conf:/etc/nginx/conf.d/vhost.conf
-    - ./web-files/www.conf:/etc/php-fpm.d/www.conf
-    - ./web-files/php-development.ini:/etc/php.d/php-development.ini
+    - ./config-files/pinfo.php:/pinfo.php
+    - ./config-files/init.sh:/init.sh
+    - ./config-files/supervisord.conf:/supervisord.conf
+    - ./config-files/my.cnf:/etc/my.cnf
+    - ./config-files/vhost.conf:/etc/nginx/conf.d/vhost.conf
+    - ./config-files/www.conf:/etc/php-fpm.d/www.conf
+    - ./config-files/php-development.ini:/etc/php.d/php-development.ini
     - ./../:/data/project
     - ./../log/nginx:/var/log/nginx
     - ./../log/php-fpm:/var/log/php-fpm
