@@ -80,3 +80,13 @@ Tüm containerları listelemek için
 ```bash
 $ docker ps -a
 ```
+
+Çalışan bir docker container durdurma
+```bash
+$ docker stop [CONTAINER_NAME]
+```
+
+Durdurulmuş bir docker container başlatma
+```bash
+$ docker start [CONTAINER_NAME]
+```
