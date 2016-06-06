@@ -4,7 +4,7 @@ Docker for PHP Projects
 ## Docker Kurulumu
 
 Linux için docker Linux dağıtımının repolarından kurulabilir.
-Mac ve Windows için Docker Toolbox kurulabilir. 
+Mac ve Windows için Docker Toolbox kurulabilir.
 Docker Toolbox Docker çalıştırmak için gereken tüm bileşenleri kurar.
 
 https://www.docker.com/products/docker-toolbox
@@ -25,7 +25,7 @@ $ docker-machine restart default
 Öncelikle docker dosyaları proje ana dizini içerisinde "docker" isimli bir dizin oluşturulup oraya taşınmalı.
 Projenin docker imajını hazırlamak için projedeki docker dizini altında aşağıdaki komut çalıştırılabilir.
 Imaj bu dizindeki Dockerfile dosyasına göre hazırlanmaktadır. Proje ihtiyaçlarına göre bu dosya gözden geçirilip eksik bir sistem modülü veya php modülü eklenebilir.
- 
+
 ```bash
 $ docker build -t [PROJECT_IMG_NAME] .
 ```
@@ -34,16 +34,13 @@ Bu komutta [PROJECT_IMG_NAME] ismini projeye uygun olarak değiştirmelisiniz. �
 
 ## Proje Docker Container Ayarları
 Proje için container ayarlayıp çalıştırması docker-compose komutu ile yapılabilir.
-Öncelikle "docker-composer.yml.sample" dosyası "docker-compser.yml" olarak kopyalaım içerisinde proje için gereken değişiklikler yapılır.
+Öncelikle "docker-compser.yml" dosyası içerisinde proje için gereken değişiklikler yapılır.
 Proje ismi ile docker container ismi belirlenir. İmaj ismi önemlidir. Önceki adımda oluşturulan imajın ismi verilmelidir.
 Daha sonra proje ihtiyaçlarına göre port, volume vs. eklenebilir.
 
 Default ayarlar ile geliştirici makinasından proje ana dizini docker container içersine default "/data/project" olarak bağlanacaktır.
-Mysql data dizini de her container stop/start sırasında kaybolmaması için buraya eklenmiştir. 
-
 
 ```bash
-$ cp docker-compose.yml.sample docker-compose.yml
 $ docker-compose up -d
 ```
 ## Container Erişimi
@@ -53,13 +50,25 @@ $ docker-compose up -d
 $ docker exec -it [CONTAINER_NAME] /bin/bash
 ```
 
-CONTAINER_NAME docker-compose.yml dosyasında verdiğimiz proje ismi olmaktadır.
+CONTAINER_NAME docker-compose.yml dosyasında servisin container_name ayarı ile tanımlanır. Bu ayar docker exec komutu ile kullanılabilir.
+
+Container'lar çalıştıktan sonra erişim portları otomatik olarak tanımlanır. Bu portlar aşağıdaki komutla görülebilir:
+```bash
+$ docker ps
+```
 
 Web üzerinden erişmek için çalışan docker machine default ipsi olan 192.168.99.100 ile erişilebilir :
 
-http://192.168.99.100/
+http://192.168.99.100:PORT/
 
 Çalışan sanal makina sizin makinanızı 192.168.99.1 olarak görür. Gereken yerlerde bu ip kullanılabilir.
+
+## Docker Servisleri
+Mysql, memcached ve gearmand servisleri öntanımlı olarak eklenmiştir. Proje ihtiyaçlarına göre yeni servisler eklenebilir ya da çıkartılabilir. https://hub.docker.com/ adresi üzerinden resmi ve resmi olmayan servisler ihtiyaçlara göre kullanılabilir.
+
+Uygulama servisine links ayarı ile tanıtılan servislere, ilgili servis adı üzerinden erişilebilir. Örneğin veritabanı bağlantısı ya da memcached erişimi için IP adresi yerine mysql:3306, memcached:11211 portu üzerinden erişim sağlanabilir.
+
+Servislerde kullanılan ports ayarı ise, bu portun ana makinadan erişilebilir olmasını sağlar. Eğer bir servisin ana makinadan erişilmesine ihtiyaç yoksa bu ayar kaldırılabilir. Genel olarak mysql veritabanına erişim gerektiğinden, docker-compose.yml dosyasında bu servisin port ayarı tanımlanmıştır.
 
 ## Faydalı Docker Komutları
 Çalışan containerları listelemek için

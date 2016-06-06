@@ -1,0 +1,42 @@
+[PROJECT_NAME]:
+  image: [IMAGE_NAME]
+  container_name: [PROJECT_NAME]
+  ports:
+    - 80
+  environment:
+    APPLICATION_ENV: development
+  command: sh /init.sh
+  links:
+    - mysql
+    - gearmand
+    - memcached
+  volumes:
+    - ./config-files/pinfo.php:/pinfo.php
+    - ./config-files/init.sh:/init.sh
+    - ./config-files/vhost.conf:/etc/nginx/conf.d/vhost.conf
+    - ./config-files/www.conf:/etc/php-fpm.d/www.conf
+    - ./config-files/php-development.ini:/etc/php.d/php-development.ini
+    - ./../:/data/project
+    - ./../log/nginx:/var/log/nginx
+    - ./../log/php-fpm:/var/log/php-fpm
+    - /root/.bash_history
+
+memcached:
+  image: memcached
+  container_name: [PROJECT_NAME]_memcached
+
+gearmand:
+  image: pataquets/gearmand
+  container_name: [PROJECT_NAME]_gearmand
+
+mysql:
+  image: mysql
+  container_name: [PROJECT_NAME]_mysql
+  ports:
+    - 3306
+  environment:
+    MYSQL_DATABASE: "database"
+    MYSQL_ROOT_PASSWORD: ""
+    MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+  volumes:
+    - ./config-files/my.cnf:/etc/mysql/conf.d/my.cnf
