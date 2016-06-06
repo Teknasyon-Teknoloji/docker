@@ -1,5 +1,3 @@
 #!/bin/bash
-
-/usr/bin/supervisord -c /supervisord.conf
-
-mysql -u root -e "GRANT ALL ON *.* TO root@'%' IDENTIFIED BY '' WITH GRANT OPTION;"
+/usr/sbin/php-fpm -R
+/usr/sbin/nginx -g "daemon off;"
