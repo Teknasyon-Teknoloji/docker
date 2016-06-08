@@ -1,15 +1,14 @@
 [PROJECT_NAME]:
   image: [IMAGE_NAME]
-  container_name: [PROJECT_NAME]
   ports:
     - 80
   environment:
     APPLICATION_ENV: development
   command: sh /init.sh
   links:
-    - mysql
-    - gearmand
-    - memcached
+    - [PROJECT_NAME]_mysql
+    - [PROJECT_NAME]_gearmand
+    - [PROJECT_NAME]_memcached
   volumes:
     - ./config-files/pinfo.php:/pinfo.php
     - ./config-files/init.sh:/init.sh
@@ -21,17 +20,14 @@
     - ./../log/php-fpm:/var/log/php-fpm
     - /root/.bash_history
 
-memcached:
+[PROJECT_NAME]_memcached:
   image: memcached
-  container_name: [PROJECT_NAME]_memcached
 
-gearmand:
+[PROJECT_NAME]_gearmand:
   image: pataquets/gearmand
-  container_name: [PROJECT_NAME]_gearmand
 
-mysql:
+[PROJECT_NAME]_mysql:
   image: mysql
-  container_name: [PROJECT_NAME]_mysql
   ports:
     - 3306
   environment:
