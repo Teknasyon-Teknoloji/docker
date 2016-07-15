@@ -3,23 +3,17 @@ Docker for PHP Projects
 
 ## Docker Kurulumu
 
-Linux için docker Linux dağıtımının repolarından kurulabilir.
-Mac ve Windows için Docker Toolbox kurulabilir.
-Docker Toolbox Docker çalıştırmak için gereken tüm bileşenleri kurar.
+İşletim sistemine uygun docker aşağıdaki adresten kurulabilir:
 
-https://www.docker.com/products/docker-toolbox
+https://www.docker.com/products/docker
+
+Mac için : https://download.docker.com/mac/beta/Docker.dmg
+Windows için : https://download.docker.com/win/beta/InstallDocker.msi
 
 ## Docker Machine Çalıştırılması ( Mac OSX )
 
-Docker Toolbox kurulduktan sonra uygulamalar altından  "Docker Quickstart Terminal" uygulaması çalışıtırlır.
-İlk kez çalıştırıldığında  dokcer machine ayağa kalkar ve sanal makina hazır hale gelir. Bu makina için verilen isim "default" şeklindedir.
-Docker machine ile sanal makina açılıp kapatılabilir.
-
-```bash
-$ docker-machine start default
-$ docker-machine stop default
-$ docker-machine restart default
-```
+Docker kurultudktan sonra Docker.app uygulaması çalıştırılır. Sağ üst menüye gelen Dokcer ikonu ile istenen ayarlar yapılır.
+Yine bu menuden docker restart yapılabilir veya kapatılabilir.
 
 ## Docker Imaj Oluşturulması
 Öncelikle docker dosyaları proje ana dizini içerisinde "docker" isimli bir dizin oluşturulup oraya taşınmalı.
@@ -39,6 +33,7 @@ Proje ismi ile docker container ismi belirlenir. İmaj ismi önemlidir. Önceki 
 Daha sonra proje ihtiyaçlarına göre port, volume vs. eklenebilir.
 
 Default ayarlar ile geliştirici makinasından proje ana dizini docker container içersine default "/data/project" olarak bağlanacaktır.
+Ayrıca nginx, php  gibi ayar dosyalarında geçen "log/", "public/" varsayılan dizinleri ya oluşturulmalı ya da projeye uygun edit edilmelidir.
 
 ```bash
 $ docker-compose up -d
@@ -57,11 +52,16 @@ Container'lar çalıştıktan sonra erişim portları otomatik olarak tanımlan�
 $ docker ps
 ```
 
-Web üzerinden erişmek için çalışan docker machine default ipsi olan 192.168.99.100 ile erişilebilir :
+Web üzerinden erişmek için ayarlanmışsa docker composerda ilişkilendirilen port ile veya "docker ps" komutu ile listenen otomatik port ile aşağıdaki gibi çağrılır.
 
-http://192.168.99.100:PORT/
+http://localhost:PORT/
 
-Çalışan sanal makina sizin makinanızı 192.168.99.1 olarak görür. Gereken yerlerde bu ip kullanılabilir.
+Çalışan sanal makina sizin makinanızı 172.17.0.1 olarak görür. Gereken yerlerde bu ip kullanılabilir.
+
+Docker network şu komut ile kontrol edilebilir:
+```bash
+$ docker network inspect bridge
+```
 
 ## Docker Servisleri
 Mysql, memcached ve gearmand servisleri öntanımlı olarak eklenmiştir. Proje ihtiyaçlarına göre yeni servisler eklenebilir ya da çıkartılabilir. https://hub.docker.com/ adresi üzerinden resmi ve resmi olmayan servisler ihtiyaçlara göre kullanılabilir.
@@ -86,7 +86,32 @@ $ docker ps -a
 $ docker stop [CONTAINER_NAME]
 ```
 
+Varolan tüm docker containerları durdurma
+```bash
+$ docker stop $(docker ps -a -q);
+```
+
 Durdurulmuş bir docker container başlatma
 ```bash
 $ docker start [CONTAINER_NAME]
+```
+
+Bir docker container silme ( Container öncelikle durmuş olmalı )
+```bash
+$ docker rm [CONTAINER_NAME]
+```
+
+Tüm oluşturulmuş docker containerları silme ( Tüm container öncelikle durmuş olmalı )
+```bash
+$ docker rm $(docker ps -a -q);
+```
+
+Tüm imajları listeleme
+```bash
+$ docker images
+```
+
+Bir docker imajını silme
+```bash
+$ docker rmi [IMAJ_ID]
 ```

@@ -32,6 +32,7 @@ RUN yum install -y --nogpgcheck epel-release && \
     rm -rf /etc/nginx/conf.d/default.conf && \
     rm -rf /etc/nginx/conf.d/ssl.conf && \
     rm -rf /etc/nginx/conf.d/virtual.conf && \
+    rm -rf /etc/nginx/nginx.conf && \
     git clone --depth=1 git://github.com/phalcon/cphalcon.git && \
     cd /cphalcon/build && ./install && \
     echo "extension=phalcon.so" > /etc/php.d/phalcon.ini && \
