@@ -37,6 +37,6 @@ RUN yum install -y --nogpgcheck epel-release && \
     echo "extension=phalcon.so" > /etc/php.d/phalcon.ini && \
     rm -rf /cphalcon && \
     curl -sS https://getcomposer.org/installer | php && \
-    mv composer.phar /usr/local/bin/composer && \
+    mv /composer.phar /usr/local/bin/composer && \
     TMPDIR=/tmp yum clean metadata && \
     TMPDIR=/tmp yum clean all
