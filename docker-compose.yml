@@ -39,4 +39,3 @@
     MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
   volumes:
     - ./config-files/my.cnf:/etc/mysql/conf.d/my.cnf
-  command: mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '';" mysql
