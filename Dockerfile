@@ -2,7 +2,7 @@ FROM centos:latest
 MAINTAINER Teknasyon <admin@teknasyon.com>
 
 RUN yum install -y --nogpgcheck epel-release && \
-    rpm -qa | grep -q remi-release || rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm && \
+    rpm -qa | grep -q remi-release | rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm && \
     sed -i "s|enabled=1|enabled=0|" /etc/yum/pluginconf.d/fastestmirror.conf && \
     yum --enablerepo=remi-php56,remi install -y --nogpgcheck \
     gcc \
@@ -28,7 +28,10 @@ RUN yum install -y --nogpgcheck epel-release && \
     php-soap \
     php-json \
     php-intl \
-    php-bcmath && \
+    php-bcmath \
+    wget \
+    telnet \
+    vim && \
     rm -rf /etc/nginx/conf.d/default.conf && \
     rm -rf /etc/nginx/conf.d/ssl.conf && \
     rm -rf /etc/nginx/conf.d/virtual.conf && \
