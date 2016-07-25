@@ -28,7 +28,10 @@ RUN yum install -y --nogpgcheck epel-release && \
     php-soap \
     php-json \
     php-intl \
-    php-bcmath && \
+    php-bcmath \
+    wget \
+    telnet \
+    vim && \
     rm -rf /etc/nginx/conf.d/default.conf && \
     rm -rf /etc/nginx/conf.d/ssl.conf && \
     rm -rf /etc/nginx/conf.d/virtual.conf && \
