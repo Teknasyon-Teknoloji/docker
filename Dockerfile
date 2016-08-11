@@ -36,10 +36,12 @@ RUN yum install -y --nogpgcheck epel-release && \
     rm -rf /etc/nginx/conf.d/ssl.conf && \
     rm -rf /etc/nginx/conf.d/virtual.conf && \
     rm -rf /etc/nginx/nginx.conf && \
-    git clone --depth=1 git://github.com/phalcon/cphalcon.git && \
-    cd /cphalcon/build && ./install && \
+    wget https://github.com/phalcon/cphalcon/archive/phalcon-v2.0.13.tar.gz -P / && \
+    tar -xzf /phalcon-v2.0.13.tar.gz && \
+    cd /cphalcon-phalcon-v2.0.13/build && ./install && \
     echo "extension=phalcon.so" > /etc/php.d/phalcon.ini && \
-    rm -rf /cphalcon && \
+    cd / && \
+    rm -rf /cphalcon-phalcon-v2.0.13 && \
     curl -sS https://getcomposer.org/installer | php && \
     mv /composer.phar /usr/local/bin/composer && \
     TMPDIR=/tmp yum clean metadata && \
