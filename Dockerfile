@@ -17,7 +17,6 @@ RUN yum install -y --nogpgcheck epel-release && \
     php-pear \
     php-pecl-xdebug \
     php-mysqlnd \
-    php-pecl-xhprof \
     php-pecl-memcached \
     php-xml \
     php-gd \
@@ -29,6 +28,11 @@ RUN yum install -y --nogpgcheck epel-release && \
     php-json \
     php-intl \
     php-bcmath \
+    php-pecl-redis \
+    php-pgsql \
+    nc \
+    unzip \
+    mysql \
     wget \
     telnet \
     vim && \

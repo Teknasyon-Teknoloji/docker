@@ -4,6 +4,7 @@
     - 80
   environment:
     APPLICATION_ENV: development
+    HISTFILE: /root/.bash_history/.bash_history
   command: sh /init.sh
   links:
     - [PROJECT_NAME]_mysql
